@@ -6,7 +6,7 @@ const Counter = () => {
 
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counter);
-  const showHide = useSelector((state) => state.counterStatus);
+  const showHide = useSelector((state) => state.showCounter);
 
 
   const [userInput, setUserInput] = useState('');
@@ -24,7 +24,7 @@ const Counter = () => {
   }
 
   const increaseHandler = () => {
-    dispatch({type: 'increase', payload: 20})
+    dispatch({type: 'increase', amount: 20})
   }
 
   const toggleCounterHandler = () => {
