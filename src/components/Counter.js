@@ -1,41 +1,33 @@
 import classes from './Counter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { counterAction } from '../store/index';
+
 
 const Counter = () => {
 
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter);
-  const showHide = useSelector((state) => state.showCounter);
-
-
-  const [userInput, setUserInput] = useState('');
-
-  const userInputHandler = (e) => {
-    e.preventDefault();
-    setUserInput(e.target.value);
-  }
+  const counter = useSelector((state) => state.counter.counter);
+  const showHide = useSelector((state) => state.counter.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: 'increment' });
+    dispatch(counterAction.increment());
   }
   const decrementHandler = () => {
-    dispatch({ type: 'decrement' });
+    dispatch(counterAction.decrement());
   }
 
   const increaseHandler = () => {
-    dispatch({type: 'increase', amount: 20})
+    dispatch(counterAction.increase(20)); // { type: SOME_UNIQUE_IDENTIFIER, payload: 20 }
   }
 
   const toggleCounterHandler = () => {
-      dispatch({type: 'togglecounter'})
+      dispatch(counterAction.toggleCounter())
    };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
       {showHide && <div className={classes.value}>{counter}</div>}
-      <input type="text" value={userInput} onChange={userInputHandler}/>
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={increaseHandler}>Increase By 20</button>
